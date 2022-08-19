@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 import { Request, Response } from 'express';
 import Service from '../Services/Service';
@@ -19,6 +20,9 @@ enum ControllerErrors {
     idError = 'Id must have 24 hexadecimal characters',
     emailUsed = 'Email is already used',
     phoneUsed = 'Phone is already used',
+    userNotFound = 'User not found',
+    endAtHigherStartAt = 'endAt must be lower than startAt',
+    startAtLowerCurrentYear = 'startAt must be higher than current year'
   }
 
 export default abstract class Controller<T> {

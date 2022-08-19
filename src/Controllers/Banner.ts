@@ -1,18 +1,55 @@
 import { Request, Response } from 'express';
 import { Banner } from '../Interfaces/BannerInterface';
+import { Customer } from '../Interfaces/CustomerInterface';
 import BannerService from '../Services/Banner';
+import CustomerService from '../Services/Customer';
+import Service from '../Services/Service';
 import Controller, { RequestWithBody, ResponseError } from './Controller';
 
 export default class CustomerController extends Controller<Banner> {
-  constructor(service = new BannerService(), route = '/banners') {
+  private customer: Service<Customer>;
+
+  constructor(customer = new CustomerService(), service = new BannerService(), route = '/banners') {
     super(service, route);
+    this.customer = customer;
   }
 
   create = async (req: RequestWithBody<Banner>, res: Response<Banner
   | ResponseError>):
   Promise<typeof res> => {
     try {
-      const data = await this.service.create(req.body);
+      // verifica se o customerID está correto
+      if (!req.body.customerID || req.body.customerID.length !== 24) {
+        return res.status(400).json({ error: this.errors.idError });
+      }
+
+      // Verifica se o usuário é valido
+      const findUser = await this.customer.readOne(req.body.customerID);
+      if (!findUser) {
+        return res.status(400).json({ error: this.errors.userNotFound });
+      }
+
+      const endDate = req.body.endAt.split('/');
+      const startDate = req.body.startAt.split('/');
+
+      const [endAt, startAt] = [
+        new Date(Number(endDate[2]), Number(endDate[1]) - 1, Number(endDate[0])),
+        new Date(Number(startDate[2]), Number(startDate[1]) - 1, Number(startDate[0]))
+      ];
+
+      if (startAt < new Date()) {
+        return res.status(400).json({ error: this.errors.startAtLowerCurrentYear });
+      }
+
+      if (endAt <= startAt) {
+        return res.status(400).json({ error: this.errors.endAtHigherStartAt });
+      }
+
+      const data = await this.service.create({
+        ...req.body,
+        startAt: startAt.toUTCString(),
+        endAt: endAt.toUTCString()
+      });
       if (!data) {
         return res.status(500).json({ error: this.errors.internal });
       }

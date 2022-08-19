@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-// eslint-disable-next-line no-useless-escape
 export const bannerSchema = z.object({
   name: z.string(),
   image: z.string(),
