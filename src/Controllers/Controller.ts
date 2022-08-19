@@ -17,6 +17,8 @@ enum ControllerErrors {
     requiredId = 'Id is required',
     badRequest = 'Bad request',
     idError = 'Id must have 24 hexadecimal characters',
+    emailUsed = 'Email is already used',
+    phoneUsed = 'Phone is already used',
   }
 
 export default abstract class Controller<T> {

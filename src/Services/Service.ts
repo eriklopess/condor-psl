@@ -24,6 +24,14 @@ export default abstract class Service<T> {
     return this.model.readOne(id);
   }
 
+  public async readOneByEmail(email: string): Promise<T | null> {
+    return this.model.readOneByEmail(email);
+  }
+
+  public async readOneByPhone(phone: string): Promise<T | null> {
+    return this.model.readOneByPhone(phone);
+  }
+
   public async update(id: string, obj: T): Promise<T | null | ServiceError> {
     return this.model.update(id, obj);
   }
