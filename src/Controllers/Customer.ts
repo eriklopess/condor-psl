@@ -46,8 +46,6 @@ export default class CustomerController extends Controller<Customer> {
       return data ? res.json(data)
         : res.status(404).json({ error: this.errors.notFound });
     } catch (error) {
-      console.log(error);
-
       return res.status(500).json({ error: this.errors.internal });
     }
   };
