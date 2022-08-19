@@ -39,4 +39,8 @@ export default abstract class Service<T> {
   public async readOneByPhone(phone: string): Promise<T | null> {
     return this.model.readOneByPhone(phone);
   }
+
+  public async uploadImage(id: string, file: any): Promise<T | null> {
+    return this.model.uploadImage(id, file);
+  }
 }

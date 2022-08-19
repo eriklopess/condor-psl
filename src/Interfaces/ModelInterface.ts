@@ -6,6 +6,7 @@ export interface Model<T> {
     readOne(id: string): Promise<T | null>;
     readOneByEmail(email: string): Promise<T | null>;
     readOneByPhone(phone: string): Promise<T | null>;
+    uploadImage(id: string, file: any): Promise<T | null>;
     update(id: string, obj: T): Promise<T | null>;
     delete(id: string): Promise<T | null>;
   }

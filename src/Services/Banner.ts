@@ -17,7 +17,7 @@ export default class BannerService extends Service<Banner> {
     return this.model.create(banner);
   }
 
-  public async update(id: string, banner: Banner): Promise<Banner
+  public override async update(id: string, banner: Banner): Promise<Banner
   | null | ServiceError> {
     return this.model.update(id, banner);
   }

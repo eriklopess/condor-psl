@@ -26,4 +26,10 @@ export default class BannerModel extends MongoModel<Banner> {
     .populate('customerID', {
       banners: 0, _id: 0, __v: 0, password: 0
     });
+
+  readOneWithoutPopulate = async (id: string): Promise<Banner
+   | null> => this.model.findOne({ _id: id })
+    .populate('customerID', {
+      banners: 0, _id: 0, __v: 0, password: 0
+    });
 }

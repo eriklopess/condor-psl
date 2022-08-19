@@ -22,7 +22,8 @@ enum ControllerErrors {
     phoneUsed = 'Phone is already used',
     userNotFound = 'User not found',
     endAtHigherStartAt = 'endAt must be lower than startAt',
-    startAtLowerCurrentYear = 'startAt must be higher than current year'
+    startAtLowerCurrentYear = 'startAt must be higher than current year',
+    imageError = 'Image must be a valid image (jpg, png, jpeg, gif)',
   }
 
 export default abstract class Controller<T> {

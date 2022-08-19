@@ -1,12 +1,12 @@
 import express, { Router } from 'express';
 import connectToDatabase from './connection';
-
 class App {
   public app: express.Application;
 
   constructor() {
     this.app = express();
     this.app.use(express.json());
+    this.app.use('/files', express.static('uploads'));
   }
 
   public addRouter(router: Router) {

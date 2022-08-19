@@ -1,5 +1,8 @@
+import multer from 'multer';
+
 import CustomRouter from '../Router';
 import App from './App';
+import { multerConfig } from '../config/multer';
 
 import CustomerController from '../Controllers/Customer';
 import BannerController from '../Controllers/Banner';
@@ -16,6 +19,7 @@ const bannerRouter = new CustomRouter<Banner>();
 
 customerRouter.addRoute(customerController);
 bannerRouter.addRoute(bannerController);
+bannerRouter.router.post('/banners/upload/:id', multer(multerConfig).single('file'), bannerController.uploadImage);
 
 server.addRouter(customerRouter.router);
 server.addRouter(bannerRouter.router);
