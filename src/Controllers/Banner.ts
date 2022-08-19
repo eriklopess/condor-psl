@@ -1,15 +1,17 @@
 import { Request, Response } from 'express';
 import { Banner } from '../Interfaces/BannerInterface';
-import { Customer } from '../Interfaces/CustomerInterface';
 import BannerService from '../Services/Banner';
 import CustomerService from '../Services/Customer';
-import Service from '../Services/Service';
 import Controller, { RequestWithBody, ResponseError } from './Controller';
 
 export default class CustomerController extends Controller<Banner> {
-  private customer: Service<Customer>;
+  private customer: CustomerService;
 
-  constructor(customer = new CustomerService(), service = new BannerService(), route = '/banners') {
+  constructor(
+    customer: CustomerService = new CustomerService(),
+    service: BannerService = new BannerService(),
+    route = '/banners'
+  ) {
     super(service, route);
     this.customer = customer;
   }
@@ -24,8 +26,8 @@ export default class CustomerController extends Controller<Banner> {
       }
 
       // Verifica se o usuário é valido
-      const findUser = await this.customer.readOne(req.body.customerID);
-      if (!findUser) {
+      const customer = await this.customer.readOne(req.body.customerID);
+      if (!customer) {
         return res.status(400).json({ error: this.errors.userNotFound });
       }
 
@@ -56,6 +58,8 @@ export default class CustomerController extends Controller<Banner> {
       if ('error' in data) {
         return res.status(400).json(data);
       }
+      // eslint-disable-next-line no-underscore-dangle
+      await this.customer.updateBannerList(data.customerID, data._id);
       return res.status(201).json(data);
     } catch (error) {
       return res.status(500).json({ error: this.errors.internal });

@@ -7,7 +7,8 @@ export const customerSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   phone: z.string().regex(PHONE_REGEX),
-  password: z.string().min(6)
+  password: z.string().min(6),
+  banners: z.any().optional()
 });
 
 export type Customer = z.infer<typeof customerSchema>;

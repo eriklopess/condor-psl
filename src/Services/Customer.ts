@@ -19,12 +19,13 @@ export default class CustomerService extends Service<Customer> {
 
   public async update(id: string, customer: Customer): Promise<Customer
   | null | ServiceError> {
-    const parsed = customerSchema.safeParse(customer);
-
-    if (!parsed.success) {
-      return { error: parsed.error };
-    }
-
     return this.model.update(id, customer);
+  }
+
+  public async updateBannerList(
+    id: string,
+    bannerId: string
+  ): Promise<Customer | null | ServiceError> {
+    return this.model.updateBannerList(id, bannerId);
   }
 }

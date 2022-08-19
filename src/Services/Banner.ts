@@ -19,12 +19,6 @@ export default class BannerService extends Service<Banner> {
 
   public async update(id: string, banner: Banner): Promise<Banner
   | null | ServiceError> {
-    const parsed = bannerSchema.safeParse(banner);
-
-    if (!parsed.success) {
-      return { error: parsed.error };
-    }
-
     return this.model.update(id, banner);
   }
 }

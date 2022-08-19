@@ -4,7 +4,7 @@ import CustomerService from '../Services/Customer';
 import Controller, { RequestWithBody, ResponseError } from './Controller';
 
 export default class CustomerController extends Controller<Customer> {
-  constructor(service = new CustomerService(), route = '/customers') {
+  constructor(service: CustomerService = new CustomerService(), route = '/customers') {
     super(service, route);
   }
 
@@ -46,6 +46,8 @@ export default class CustomerController extends Controller<Customer> {
       return data ? res.json(data)
         : res.status(404).json({ error: this.errors.notFound });
     } catch (error) {
+      console.log(error);
+
       return res.status(500).json({ error: this.errors.internal });
     }
   };
