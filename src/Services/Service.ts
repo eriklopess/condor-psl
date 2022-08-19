@@ -6,7 +6,7 @@ export interface ServiceError {
 }
 
 export default abstract class Service<T> {
-  private model: Model<T>;
+  protected model: Model<T>;
 
   constructor(model: Model<T>) {
     this.model = model;
