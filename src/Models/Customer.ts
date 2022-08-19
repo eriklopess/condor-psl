@@ -11,8 +11,8 @@ const customerSchema = new Schema<CustomerDocument>({
   password: { type: String, required: true, minlength: 6 }
 });
 
-export default class CustomerModel extends MongoModel<CustomerDocument> {
-  constructor() {
-    super(createModel<CustomerDocument>('Customer', customerSchema));
+export default class CustomerModel extends MongoModel<Customer> {
+  constructor(public model = createModel('Customer', customerSchema)) {
+    super(model);
   }
 }
