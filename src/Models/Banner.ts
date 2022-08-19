@@ -14,7 +14,7 @@ const bannerSchema = new Schema<BannerDocument>({
 });
 
 export default class BannerModel extends MongoModel<Banner> {
-  constructor(public model = createModel('Customer', bannerSchema)) {
+  constructor(public model = createModel('Banner', bannerSchema)) {
     super(model);
   }
 }
