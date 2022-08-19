@@ -29,7 +29,6 @@ export default class CustomerController extends Controller<Customer> {
       }
       return res.status(201).json(data);
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ error: this.errors.internal });
     }
   };
@@ -47,7 +46,6 @@ export default class CustomerController extends Controller<Customer> {
       return data ? res.json(data)
         : res.status(404).json({ error: this.errors.notFound });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ error: this.errors.internal });
     }
   };
@@ -68,7 +66,6 @@ export default class CustomerController extends Controller<Customer> {
       }
       return res.status(200).json(data);
     } catch (error) {
-      console.log(error);
       return res.status(400).json({ error: this.errors.idError });
     }
   };
@@ -87,7 +84,6 @@ export default class CustomerController extends Controller<Customer> {
       await this.service.delete(id);
       return res.status(204).json();
     } catch (error) {
-      console.log(error);
       return res.status(400).json({ error: this.errors.idError });
     }
   };
