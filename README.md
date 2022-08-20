@@ -27,6 +27,11 @@
    Exemplo: 
    MONGO_DB_URL="*mongodb://localhost:27017*"
 
+   PORT - Porta que a aplicação será aberta.
+
+   Exemplo:
+   PORT="*3000*"
+
 ## Documentação
 
 **Faça toda a instalação da aplicação e abra a rota: ``/docs``
