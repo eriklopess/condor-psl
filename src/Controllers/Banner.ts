@@ -60,14 +60,16 @@ export default class CustomerController extends Controller<Banner> {
       }
 
       if ('error' in data) {
-        return res.status(400).json(data);
+        const error = {
+          message: data.error.errors[0].message
+        };
+        return res.status(400).json({ error });
       }
 
       // eslint-disable-next-line no-underscore-dangle
       await this.customer.updateBannerList(data.customerID, data._id);
       return res.status(201).json(data);
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ error: this.errors.internal });
     }
   };
@@ -96,12 +98,18 @@ export default class CustomerController extends Controller<Banner> {
     const { id } = req.params;
 
     try {
+      if (req.body.customerID && req.body.customerID.length !== 24) {
+        return res.status(400).json({ error: this.errors.idError });
+      }
       const data = await this.service.update(id, req.body);
       if (!data) {
         return res.status(404).json({ error: this.errors.notFound });
       }
       if ('error' in data) {
-        return res.status(400).json(data);
+        const error = {
+          message: data.error.errors[0].message
+        };
+        return res.status(400).json({ error });
       }
       return res.status(200).json(data);
     } catch (error) {
@@ -138,9 +146,6 @@ export default class CustomerController extends Controller<Banner> {
       if (!data) {
         return res.status(404).json({ error: this.errors.notFound });
       }
-      if ('error' in data) {
-        return res.status(400).json(data);
-      }
       return res.status(200).json(data);
     } catch (error) {
       return res.status(400).json({ error: this.errors.idError });
@@ -159,9 +164,6 @@ export default class CustomerController extends Controller<Banner> {
       const data = await this.service.update(id, req.body);
       if (!data) {
         return res.status(404).json({ error: this.errors.notFound });
-      }
-      if ('error' in data) {
-        return res.status(400).json(data);
       }
       return res.status(200).json(data);
     } catch (error) {
