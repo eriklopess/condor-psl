@@ -10,13 +10,15 @@ export default abstract class MongoModel<T> implements Model<T> {
 
   create = async (obj: T): Promise<T> => this.model.create({ ...obj });
 
-  read = async (): Promise<T[]> => this.model.find();
+  read = async (): Promise<T[]> => this.model.find({}, { __v: 0 });
 
-  readOne = async (id: string): Promise<T | null> => this.model.findOne({ _id: id });
+  readOne = async (id: string): Promise<T | null> => this.model.findOne({ _id: id }, { __v: 0 });
 
-  readOneByEmail = async (email: string): Promise<T | null> => this.model.findOne({ email });
+  readOneByEmail = async (email: string):
+    Promise<T | null> => this.model.findOne({ email }, { __v: 0 });
 
-  readOneByPhone = async (phone: string): Promise<T | null> => this.model.findOne({ phone });
+  readOneByPhone = async (phone: string):
+    Promise<T | null> => this.model.findOne({ phone }, { __v: 0 });
 
   uploadImage = async (
     id: string,

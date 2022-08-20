@@ -17,8 +17,8 @@ export default class CustomerModel extends MongoModel<Customer> {
     super(model);
   }
 
-  read = async (): Promise<Customer[]> => this.model.find({}, { password: 0 });
+  read = async (): Promise<Customer[]> => this.model.find({}, { password: 0, __v: 0 });
 
   readOne = async (id: string): Promise<Customer
-  | null> => this.model.findOne({ _id: id }, { password: 0 });
+  | null> => this.model.findOne({ _id: id }, { __v: 0 });
 }
