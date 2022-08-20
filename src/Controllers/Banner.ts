@@ -20,7 +20,7 @@ export default class CustomerController extends Controller<Banner> {
   | ResponseError>):
   Promise<typeof res> => {
     try {
-      // verifica se o customerID está correto
+      // Verifica se o customerID está correto
       if (!req.body.customerID || req.body.customerID.length !== 24) {
         return res.status(400).json({ error: this.errors.idError });
       }
@@ -50,18 +50,24 @@ export default class CustomerController extends Controller<Banner> {
       const data = await this.service.create({
         ...req.body,
         startAt: startAt.toUTCString(),
-        endAt: endAt.toUTCString()
+        endAt: endAt.toUTCString(),
+        image: '/',
+        status: true
       });
+
       if (!data) {
         return res.status(500).json({ error: this.errors.internal });
       }
+
       if ('error' in data) {
         return res.status(400).json(data);
       }
+
       // eslint-disable-next-line no-underscore-dangle
       await this.customer.updateBannerList(data.customerID, data._id);
       return res.status(201).json(data);
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ error: this.errors.internal });
     }
   };

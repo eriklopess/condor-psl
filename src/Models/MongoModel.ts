@@ -23,8 +23,8 @@ export default abstract class MongoModel<T> implements Model<T> {
     file: any
   ): Promise<T | null> => this.model.findByIdAndUpdate(id, { image: file });
 
-  updateBannerList = async (id: string, bannerId: string): Promise<T
-  | null> => this.model.findOneAndUpdate({ _id: id }, { $push: { banners: bannerId } });
+  updateBannerList = async (customerId: string, bannerId: string): Promise<T
+  | null> => this.model.findOneAndUpdate({ _id: customerId }, { $push: { banners: bannerId } });
 
   update = async (id: string, obj: T): Promise<T
   | null> => this.model.findOneAndUpdate({ _id: id }, { ...obj });

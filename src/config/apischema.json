@@ -1,0 +1,600 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Condor - Teste",
+    "description": "",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "erik.lopesoliveira2019@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.11"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "customers",
+      "description": "Breakpoints com clientes"
+    },
+    {
+      "name": "banners",
+      "description": "Breakpoints com banners"
+    }
+  ],
+  "paths": {
+    "/customers": {
+      "get": {
+        "tags": [
+          "customers"
+        ],
+        "summary": "Busca todos os clientes",
+        "description": "Busca todos os clientes",
+        "operationId": "getCustomer",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CustomerPostSucess"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "customers"
+        ],
+        "summary": "Cria um novo cliente",
+        "description": "Cria um novo cliente",
+        "operationId": "addCustomer",
+        "requestBody": {
+          "description": "Cria um novo cliente",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPostSucess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid body"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}": {
+      "put": {
+        "tags": [
+          "customers"
+        ],
+        "summary": "Edita um cliente",
+        "description": "Edita um cliente com base no id",
+        "operationId": "updateCustomer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "customerId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Id do cliente"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPostSucess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição invalida"
+          },
+          "404": {
+            "description": "Cliente não encontrado"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "customers"
+        ],
+        "summary": "Busca um cliente",
+        "description": "Busca um cliente com base no id",
+        "operationId": "readOneCustomer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "customerId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Id do cliente"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerReadOne"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Id invalido"
+          },
+          "404": {
+            "description": "Cliente não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "customers"
+        ],
+        "summary": "Deleta um cliente",
+        "description": "Deleta um cliente com base no id",
+        "operationId": "removeCustomer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "customerId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Id do cliente"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Sucesso"
+          },
+          "400": {
+            "description": "Requisição invalida"
+          },
+          "404": {
+            "description": "Cliente não encontrado"
+          }
+        }
+      }
+    },
+    "/banners": {
+      "get": {
+        "tags": [
+          "banners"
+        ],
+        "summary": "Busca todos os banner",
+        "description": "Busca todos os banner",
+        "operationId": "getBanner",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Banner"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "banners"
+        ],
+        "summary": "Cria um novo banner",
+        "description": "Cria um novo banner",
+        "operationId": "addBanner",
+        "requestBody": {
+          "description": "Cria um novo banner",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BannerPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BannerPostSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição invalida"
+          }
+        }
+      }
+    },
+    "/banners/{bannerId}": {
+      "put": {
+        "tags": [
+          "banners"
+        ],
+        "summary": "Edita um banner",
+        "description": "Edita um banner com base no id",
+        "operationId": "updateBanner",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bannerId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Id do cliente"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BannerPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BannerPostSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição invalida"
+          },
+          "404": {
+            "description": "Cliente não encontrado"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "banners"
+        ],
+        "summary": "Busca um banner",
+        "description": "Busca um banner com base no id",
+        "operationId": "readOneBanner",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bannerId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Id do banner"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Banner"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Id invalido"
+          },
+          "404": {
+            "description": "Banner não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "banners"
+        ],
+        "summary": "Deleta um banner",
+        "description": "Deleta um banner com base no id",
+        "operationId": "removeBanner",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bannerId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Id do banner"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Sucesso"
+          },
+          "400": {
+            "description": "Requisição invalida"
+          },
+          "404": {
+            "description": "Banner não encontrado"
+          }
+        }
+      }
+    },
+    "/banners/upload/{bannerId}": {
+      "post": {
+        "tags": [
+          "banners"
+        ],
+        "summary": "Envia uma imagem para o servidor",
+        "description": "Envia uma imagem para o servidor com base no id do banner",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bannerId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Id do banner"
+          },
+          {
+            "in": "formData",
+            "name": "upfile",
+            "type": "file",
+            "description": "Imagem do banner"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Banner"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição invalida"
+          },
+          "404": {
+            "description": "Banner não encontrado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CustomerReadOne": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Roberto"
+          },
+          "email": {
+            "type": "string",
+            "example": "Roberto@gmail.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "(41) 98878-1679"
+          },
+          "banners": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Banner"
+            }
+          }
+        }
+      },
+      "CustomerPost": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Roberto"
+          },
+          "email": {
+            "type": "string",
+            "example": "Roberto@gmail.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "(41) 98878-1679"
+          },
+          "password": {
+            "type": "string",
+            "example": 123456
+          }
+        }
+      },
+      "CustomerPostSucess": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "62ffb460758b3f6a361bd472"
+          },
+          "name": {
+            "type": "string",
+            "example": "Roberto"
+          },
+          "email": {
+            "type": "string",
+            "example": "Roberto@gmail.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "(41) 98878-1679"
+          },
+          "password": {
+            "type": "string",
+            "example": 123456
+          },
+          "banners": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Banner": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "62ffbca09b30356b6852bed3"
+          },
+          "name": {
+            "type": "string",
+            "example": "Promoção"
+          },
+          "image": {
+            "type": "string",
+            "example": "/files/e4b5b376cdd85b354a7bc730c81327f7.jpg"
+          },
+          "customerID": {
+            "type": "string",
+            "example": "62fef0b60e2dff95b4f3179d"
+          },
+          "endAt": {
+            "type": "string",
+            "example": "Fri, 23 Sep 2022 03:00:00 GMT"
+          },
+          "startAt": {
+            "type": "string",
+            "example": "Fri, 22 Sep 2022 03:00:00 GMT"
+          },
+          "status": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "BannerPost": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Promoção"
+          },
+          "customerID": {
+            "type": "string",
+            "example": "62fef0b60e2dff95b4f3179d"
+          },
+          "endAt": {
+            "type": "string",
+            "example": "23/09/2022"
+          },
+          "startAt": {
+            "type": "string",
+            "example": "21/09/2022"
+          }
+        }
+      },
+      "BannerPostSuccess": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "62ffbca09b30356b6852bed3"
+          },
+          "name": {
+            "type": "string",
+            "example": "Promoção"
+          },
+          "image": {
+            "type": "string",
+            "example": "/"
+          },
+          "customerID": {
+            "type": "string",
+            "example": "62fef0b60e2dff95b4f3179d"
+          },
+          "endAt": {
+            "type": "string",
+            "example": "Fri, 23 Sep 2022 03:00:00 GMT"
+          },
+          "startAt": {
+            "type": "string",
+            "example": "Fri, 22 Sep 2022 03:00:00 GMT"
+          },
+          "status": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      }
+    }
+  }
+}

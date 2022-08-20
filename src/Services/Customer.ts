@@ -23,9 +23,9 @@ export default class CustomerService extends Service<Customer> {
   }
 
   public async updateBannerList(
-    id: string,
+    custumerId: string,
     bannerId: string
   ): Promise<Customer | null | ServiceError> {
-    return this.model.updateBannerList(id, bannerId);
+    return this.model.updateBannerList(custumerId, bannerId);
   }
 }
