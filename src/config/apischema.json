@@ -429,6 +429,37 @@
           }
         }
       }
+    },
+    "/banners/disable/{bannerId}": {
+      "post": {
+        "tags": [
+          "banners"
+        ],
+        "summary": "Desabilita um banner",
+        "description": "Desabilita um banner com base no id do banner",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bannerId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Id do banner"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso"
+          },
+          "400": {
+            "description": "Requisição invalida"
+          },
+          "404": {
+            "description": "Banner não encontrado"
+          }
+        }
+      }
     }
   },
   "components": {
