@@ -22,10 +22,10 @@
 ## Váriaveis de Ambiente
 ----------
 
-   MONGO_DB_URL - URL para conectar ao banco de dados mongo.
+   MONGO_DB_URI - URL para conectar ao banco de dados mongo.
 
    Exemplo: 
-   MONGO_DB_URL="*mongodb://localhost:27017*"
+   MONGO_DB_URI="*mongodb://localhost:27017*"
 
    PORT - Porta que a aplicação será aberta.
 
