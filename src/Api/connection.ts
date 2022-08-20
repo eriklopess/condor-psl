@@ -1,13 +1,10 @@
 import mongoose from 'mongoose';
 import 'dotenv/config';
 
-const MONGO_DB_URL = process.env.MONGO_DB_URL;
+const MONGO_DB_URI = process.env.MONGO_DB_URI as string;
 
 const connectToDatabase = () => {
-  if (typeof MONGO_DB_URL !== 'string') {
-    throw new Error('MONGO_DB_URL is not a string');
-  }
-  mongoose.connect(MONGO_DB_URL);
+  mongoose.connect(MONGO_DB_URI);
 };
 
 export default connectToDatabase;
