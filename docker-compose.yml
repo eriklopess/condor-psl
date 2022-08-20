@@ -5,7 +5,7 @@ services:
     restart: always
     build: .
     environment:
-      - MONGO_URI=mongodb://mongo/condor-psl
+      - MONGO_DB_URI=mongodb://mongo/condor-psl
       - PORT=3000
     ports:
       - "3000:3000"
@@ -20,4 +20,4 @@ services:
     image: mongo
     ports:
       - "27017:27017"
-    command: mongod --smallfiles --logpath=/dev/null
+    command: mongod --logpath=/dev/null
