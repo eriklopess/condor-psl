@@ -4,7 +4,10 @@ import CustomerService from '../Services/Customer';
 import Controller, { RequestWithBody, ResponseError } from './Controller';
 
 export default class CustomerController extends Controller<Customer> {
-  constructor(service: CustomerService = new CustomerService(), route = '/customers') {
+  constructor(
+    service: CustomerService = new CustomerService(),
+    route = '/customers'
+  ) {
     super(service, route);
   }
 

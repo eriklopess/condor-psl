@@ -20,7 +20,6 @@ const bannerRouter = new CustomRouter<Banner>();
 customerRouter.addRoute(customerController);
 bannerRouter.addRoute(bannerController);
 bannerRouter.router.post('/banners/upload/:id', multer(multerConfig).single('file'), bannerController.uploadImage);
-bannerRouter.router.post('/banners/disable/:id', bannerController.disableStatus);
 
 server.addRouter(customerRouter.router);
 server.addRouter(bannerRouter.router);

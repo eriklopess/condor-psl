@@ -152,24 +152,6 @@ export default class CustomerController extends Controller<Banner> {
     }
   };
 
-  delete = async (
-    req: Request<{ id: string }>,
-    res: Response<Banner | ResponseError>
-  ): Promise<typeof res> => {
-    const { id } = req.params;
-
-    try {
-      const data = await this.service.readOne(id);
-      if (!data) {
-        return res.status(404).json({ error: this.errors.notFound });
-      }
-      await this.service.delete(id);
-      return res.status(204).json();
-    } catch (error) {
-      return res.status(400).json({ error: this.errors.idError });
-    }
-  };
-
   uploadImage = async (
     req: Request<{ id: string }>,
     res: Response<Banner | ResponseError | null>
@@ -187,7 +169,7 @@ export default class CustomerController extends Controller<Banner> {
     }
   };
 
-  disableStatus = async (
+  delete = async (
     req: Request<{ id: string }>,
     res: Response<Banner | ResponseError | null>
   ): Promise<typeof res> => {
@@ -200,7 +182,7 @@ export default class CustomerController extends Controller<Banner> {
       if (!data) {
         return res.status(404).json({ error: this.errors.notFound });
       }
-      return res.status(200).json(data);
+      return res.status(204).json();
     } catch (error) {
       return res.status(400).json({ error: this.errors.idError });
     }
