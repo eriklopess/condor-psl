@@ -9,6 +9,7 @@ class App {
 
   constructor() {
     this.app = express();
+    this.app.disable('x-powered-by');
     this.app.use(express.json());
     this.app.use('/files', express.static('uploads'));
     this.setupSwagger();

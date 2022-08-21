@@ -2,8 +2,6 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Condor - Teste",
-    "description": "",
-    "termsOfService": "http://swagger.io/terms/",
     "contact": {
       "email": "erik.lopesoliveira2019@gmail.com"
     }
@@ -281,7 +279,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BannerPost"
+                "$ref": "#/components/schemas/BannerUpdate"
               }
             }
           },
@@ -393,14 +391,18 @@
             },
             "required": true,
             "description": "Id do banner"
-          },
-          {
-            "in": "formData",
-            "name": "upfile",
-            "type": "file",
-            "description": "Imagem do banner"
           }
         ],
+        "requestBody": {
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Sucesso",
@@ -573,6 +575,23 @@
           "customerID": {
             "type": "string",
             "example": "62fef0b60e2dff95b4f3179d"
+          },
+          "endAt": {
+            "type": "string",
+            "example": "23/09/2022"
+          },
+          "startAt": {
+            "type": "string",
+            "example": "21/09/2022"
+          }
+        }
+      },
+      "BannerUpdate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Promoção"
           },
           "endAt": {
             "type": "string",
