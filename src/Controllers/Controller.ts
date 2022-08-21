@@ -12,18 +12,20 @@ export interface RequestWithBody<T> extends Request {
 }
 
 // eslint-disable-next-line no-shadow, no-unused-vars
-enum ControllerErrors {
-    internal = 'Internal server error',
-    notFound = 'Object not found',
-    requiredId = 'Id is required',
-    badRequest = 'Bad request',
-    idError = 'Id must have 24 hexadecimal characters',
-    emailUsed = 'Email is already used',
-    phoneUsed = 'Phone is already used',
-    userNotFound = 'User not found',
-    endAtHigherStartAt = 'endAt must be lower than startAt',
-    startAtLowerCurrentYear = 'startAt must be higher than current year',
-    imageError = 'Image must be a valid image (jpg, png, jpeg, gif)',
+export enum ControllerErrors {
+    internal = 'Internal server error.',
+    notFound = 'Object not found.',
+    requiredId = 'Id is required.',
+    badRequest = 'Bad request.',
+    idError = 'Id must have 24 hexadecimal characters.',
+    emailUsed = 'Email is already used.',
+    phoneUsed = 'Phone is already used.',
+    userNotFound = 'User not found.',
+    endAtHigherStartAt = 'endAt must be lower than startAt.',
+    startAtLowerCurrentYear = 'startAt must be higher than current year.',
+    imageError = 'Image must be a valid image (jpg, png, jpeg, gif).',
+    updateCustomerId = 'customerId cannot be changed.',
+    endAtstartAtRequired = 'endAt and startAt is required.',
   }
 
 export default abstract class Controller<T> {

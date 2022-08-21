@@ -274,7 +274,7 @@
               "type": "string"
             },
             "required": true,
-            "description": "Id do cliente"
+            "description": "Id do banner"
           }
         ],
         "requestBody": {

@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { Banner } from '../Interfaces/BannerInterface';
 import BannerService from '../Services/Banner';
 import CustomerService from '../Services/Customer';
+import { ServiceError } from '../Services/Service';
+import verifyEndAtAndStartAt from '../utils/verifyDate';
 import Controller, { RequestWithBody, ResponseError } from './Controller';
 
 export default class CustomerController extends Controller<Banner> {
@@ -23,6 +25,11 @@ export default class CustomerController extends Controller<Banner> {
       // Verifica se o customerID está correto
       if (!req.body.customerID || req.body.customerID.length !== 24) {
         return res.status(400).json({ error: this.errors.idError });
+      }
+
+      // Verifica se há startAt e endAt
+      if (!req.body.startAt || !req.body.endAt) {
+        return res.status(400).json({ error: this.errors.endAtstartAtRequired });
       }
 
       // Verifica se o usuário é valido
@@ -98,22 +105,50 @@ export default class CustomerController extends Controller<Banner> {
     const { id } = req.params;
 
     try {
-      if (req.body.customerID && req.body.customerID.length !== 24) {
-        return res.status(400).json({ error: this.errors.idError });
+      if (req.body.customerID) {
+        return res.status(400).json({ error: this.errors.updateCustomerId });
       }
-      const data = await this.service.update(id, req.body);
-      if (!data) {
+
+      const oldData = await this.service.readOne(id);
+
+      if (!oldData) {
         return res.status(404).json({ error: this.errors.notFound });
       }
-      if ('error' in data) {
+
+      let data: Banner | ServiceError;
+      if (req.body.endAt || req.body.startAt) {
+        const dates = verifyEndAtAndStartAt(req.body.endAt, req.body.startAt, oldData);
+        if ('error' in dates!) {
+          return res.status(400).send(dates);
+        }
+        if (!dates.endAt && dates.startAt) {
+          data = await this.service.update(id, {
+            ...req.body,
+            startAt: dates.startAt.toUTCString()
+          }) as Banner | ServiceError;
+        } else if (!dates.startAt && dates.endAt) {
+          data = await this.service.update(id, {
+            ...req.body,
+            endAt: dates.endAt.toUTCString()
+          }) as Banner | ServiceError;
+        } else if (dates.startAt && dates.endAt) {
+          data = await this.service.update(id, {
+            ...req.body,
+            startAt: dates.startAt.toUTCString(),
+            endAt: dates.endAt.toUTCString()
+          }) as Banner | ServiceError;
+        }
+      }
+
+      if ('error' in data!) {
         const error = {
           message: data.error.errors[0].message
         };
         return res.status(400).json({ error });
       }
-      return res.status(200).json(data);
+      return res.status(200).json(data!);
     } catch (error) {
-      return res.status(400).json({ error: this.errors.idError });
+      return res.status(500).json({ error: this.errors.internal });
     }
   };
 
