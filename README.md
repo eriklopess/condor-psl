@@ -5,7 +5,7 @@
 
 **Clone o repositório.**
 
-``git clone git@github.com:eriklopess/condor-psl.git``
+``git clone git@github.com:eriklopess/sistema-de-criacao-de-usuario.git``
 
 **Instale as dependencias.**
 
